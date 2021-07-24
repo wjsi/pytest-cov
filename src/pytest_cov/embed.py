@@ -15,6 +15,7 @@ info passed via env vars.
 """
 import atexit
 import os
+import sys
 import signal
 
 _active_cov = None
@@ -46,6 +47,10 @@ def init():
     cov_datafile = os.environ.get('COV_CORE_DATAFILE')
     cov_branch = True if os.environ.get('COV_CORE_BRANCH') == 'enabled' else None
     cov_context = os.environ.get('COV_CORE_CONTEXT')
+
+    print(f'cov_source: {cov_source}, cov_config: {cov_config}, '
+          f'cov_datafile: {cov_datafile}, cov_branch: {cov_branch}, '
+          f'cov_context: {cov_context}', file=sys.stderr)
 
     if cov_datafile:
         if _active_cov:
